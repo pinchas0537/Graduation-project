@@ -2,16 +2,21 @@ import { useState } from "react";
 import Input from "../component/Input";
 import Button from "../component/button"
 import { login } from "../api/login";
-
+import { useGlobalStore } from "../globalStore/useGlobalstore"
 export default function Login() {
-
+    const {setToken } = useGlobalStore()
     const [agentCode, setAgentCode] = useState("")
     const [password, setPassword] = useState("")
+
+    async function loginUser() {
+        const userLogin = await login({ agentCode, password })
+        setToken(userLogin)
+    }
 
     return (
         <form className="login" onSubmit={(e) => {
             e.preventDefault();
-            login({ agentCode, password })
+            loginUser()
         }}>
             <div className="InputContainer">
                 <div className="input-row">

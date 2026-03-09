@@ -12,3 +12,21 @@ export async function insertOne(data = {}) {
         throw error
     }
 }
+
+export async function findOne(agentCode) {
+    try {
+        const result = await db.collection(collection).findOne({ agentCode: agentCode })
+        return result
+    } catch (error) {
+        throw error
+    }                         
+}
+
+export async function findAll(){
+    try {
+        const result = await db.collection(collection).find().toArray()
+        return result
+    } catch (error) {
+        throw error
+    }
+}

@@ -1,13 +1,14 @@
 import { config } from "dotenv";
-import { insertOne } from "../DAL/authD.js";
+import { findOne } from "../DAL/authD.js";
 import { signToken } from "./token.js";
 config()
 
-export async function creataUser(user = {}) {
+export async function loginUser(agentCode) {
     try {
-        const insert = await insertOne(user)
-        const token = signToken({ role: "agent", agentCode: user.agentCode },process.env.SECRET_JWT)
-        return { insert, token }
+        const insert = await findOne(agentCode)
+        const {hashPassword , ...newObjUser} = insert
+        const token = signToken({ role: "agent", agentCode: agentCode },process.env.SECRET_JWT)
+        return { newObjUser, token }
     } catch (error) {
         throw error
     }

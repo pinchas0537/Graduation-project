@@ -2,9 +2,9 @@ import { useState } from "react";
 import Input from "../component/Input";
 import Button from "../component/button"
 import { login } from "../api/login";
-import { useGlobalStore } from "../globalStore/useGlobalstore"
+import { useGlobalToken } from "../globalStore/useGlobalToken"
 export default function Login() {
-    const {setToken } = useGlobalStore()
+    const {setToken } = useGlobalToken()
     const [agentCode, setAgentCode] = useState("")
     const [password, setPassword] = useState("")
 
@@ -19,11 +19,11 @@ export default function Login() {
             loginUser()
         }}>
             <div className="InputContainer">
-                <div className="input-row">
-                    <Input setValue={setAgentCode} typeInput="text" placeholderInput="enter agentCode" />
+                <div className="input-row input-row-login">
+                    <Input className="input" setValue={setAgentCode} typeInput="text" placeholderInput="enter agentCode" required={true}/>
                 </div>
-                <div className="input-row">
-                    <Input setValue={setPassword} typeInput="password" placeholderInput="enter password" />
+                <div className="input-row input-row-login">
+                    <Input className="input" setValue={setPassword} typeInput="password" placeholderInput="enter password" required={true}/>
                 </div>
                 <div className="login-button-wrapper">
                     <Button classN="button" typeButton="submit" name="Login" />

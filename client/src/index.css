@@ -138,3 +138,30 @@
     transition: transform 0.3s ease;
     cursor: pointer;
 }
+.error{
+  color: red;
+  font-size: 1.5rem;
+font-weight: bold;
+}
+
+#upload-button::file-selector-button {
+  background-color: #007bff;
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  
+}
+
+#upload-button::file-selector-button:hover {
+  background-color: #0056b3;
+}
+.nevad{
+  display: flex;
+  justify-content: space-around;
+}
+.ad{
+  background-color: #29c4f3;
+}

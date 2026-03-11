@@ -3,5 +3,5 @@ export type Create = {
         agentCode:string,
         fullName:string,
         role:string,
-        password:string
+        password?:string
 }

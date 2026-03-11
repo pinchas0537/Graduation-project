@@ -5,4 +5,5 @@ export type Input = {
     setValue?: (value: string) => void,
     required?:boolean
     value?:string
+    accept?:string
 }

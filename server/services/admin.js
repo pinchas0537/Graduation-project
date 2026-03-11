@@ -28,6 +28,10 @@ export async function findAllAgents(){
     }
 }
 export function hashingPassword(password){
-    const hash = bcrypt.hashSync(password,10)
-    return hash
+    try {
+        const hash = bcrypt.hashSync(password,10)
+        return hash
+    } catch (error) {
+        throw error
+    }
 }

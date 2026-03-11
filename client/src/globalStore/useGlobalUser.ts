@@ -6,8 +6,8 @@ import type { Create } from "../types/createType"
 
 export const useGlobalUser = create<UserStore>(
 
-        (set) => ({
-    createUser: null,
-    setCreateUser: (user: RuternUser | Create) => set({ createUser: user }),
-})
+    (set) => ({
+        createUser: null,
+        setCreateUser: (user: RuternUser | Create) => set({ createUser: user }),
+    })
 )

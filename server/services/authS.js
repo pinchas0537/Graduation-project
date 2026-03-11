@@ -6,8 +6,8 @@ config()
 export async function loginUser(agentCode) {
     try {
         const insert = await findOne(agentCode)
-        const {hashPassword , ...newObjUser} = insert
-        const token = signToken({ role: "agent", agentCode: agentCode },process.env.SECRET_JWT)
+        const { hashPassword, ...newObjUser } = insert
+        const token = signToken({ role: newObjUser.role, agentCode: agentCode }, process.env.SECRET_JWT)
         return { newObjUser, token }
     } catch (error) {
         throw error

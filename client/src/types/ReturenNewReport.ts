@@ -4,7 +4,7 @@ export type ReturenReport = {
         category: string;
         urgency: string;
         message: string;
-        imagePath: string;
+        imagesPath: Array<string>;
         sourceType: string;
         createdAt: string;
         userId: string;

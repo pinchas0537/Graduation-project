@@ -6,6 +6,7 @@ import NewReport from "./pages/NewReport";
 import AgentDeshbord from "./pages/AgentDeshbord";
 import AdminDashboard from "./pages/AdminDashboard";
 import ResultSendReport from "./pages/ResultSendReport";
+import CSVUpload from "./pages/CSVUpload";
 
 export default function App() {
   return (
@@ -17,6 +18,8 @@ export default function App() {
       <Route path="/agentdeshbord" element={<AgentDeshbord/>}/>
       <Route path="/admindeshbord" element={<AdminDashboard/>}/>
       <Route path="/successsendreport" element={<ResultSendReport/>}/>
+      <Route path="/agent/csvupload" element={<CSVUpload/>}/>
+      <Route path="/admin/csvupload" element={<CSVUpload/>}/>
     </Routes>
   )
 }

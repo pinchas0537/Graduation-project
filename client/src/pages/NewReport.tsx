@@ -27,7 +27,6 @@ export default function NewReport() {
             fromData.append("urgency", urgency)
             fromData.append("userId", user!._id)
             const create: ReturenReport = await createRoport(fromData)
-            console.log(create.data);
             setReport(create);
         } catch (error) {
             console.error(error)

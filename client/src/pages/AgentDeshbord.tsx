@@ -22,7 +22,7 @@ export default function AgentDeshbord() {
                         <Button onClick={() => {
                             navigate("/createreport")
                         }} classN="button ad" typeButton="button" name="שליחת דיווח ידני" />
-                        <Button classN="button ad" typeButton="button" name="העלת קובץ csv" />
+                        <Button onClick={()=>navigate("/agent/csvupload")} classN="button ad" typeButton="button" name="העלת קובץ csv" />
                         <Button classN="button ad" typeButton="button" name="לראות את כל הדיווחים שלי" />
                     </nav>
                 </>

@@ -22,10 +22,6 @@ app.use(cors({
     exposedHeaders:["Authorization"]
 }))
 
-app.get("/", (req, res) => {
-    res.send("wolcome to project")
-})
-
 app.use("/auth",authR)
 
 app.use("/admin",adminRouter)

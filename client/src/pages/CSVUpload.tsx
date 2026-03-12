@@ -1,5 +1,10 @@
+import { useRef } from "react"
+
 export default function CSVUpload() {
+  const refFile = useRef<HTMLInputElement | null>(null)
   return (
-    <div>CSVUpload</div>
+    <form action="" className="login">
+      <input type="file" id="upload-button" ref={refFile} accept=".csv" required />
+    </form>
   )
 }

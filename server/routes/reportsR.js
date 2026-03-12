@@ -1,15 +1,17 @@
 import { Router} from "express"
-import { sendingReport } from "../controller/reportsC.js"
+import { reportCsv, reportFilterById, reportFiltering, sendingReport } from "../controller/reportsC.js"
 import { imageFile } from "../middleware/imageFile.js"
+import { csvFile } from "../middleware/csvFile.js"
+import { reportError } from "../middleware/reportM.js"
 
 const router = Router()
 
-router.post("/",imageFile,sendingReport)
+router.post("/",reportError,imageFile,sendingReport)
 
-// router.post("/csv")
+router.post("/csv",csvFile,reportCsv)
 
-// router.get("/")
+router.get("/",reportFiltering)
 
-// router.get("/:id")
+router.get("/:id",reportFilterById)
 
 export default router

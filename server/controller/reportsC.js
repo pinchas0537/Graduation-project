@@ -1,4 +1,4 @@
-import { createReport } from "../services/reportS.js"
+import { createReport, csvReport, getReportById, getReportFiltering } from "../services/reportS.js"
 
 export async function sendingReport(req, res) {
     try {
@@ -6,16 +6,43 @@ export async function sendingReport(req, res) {
         const reportData = { category, urgency, message, userId }
         let images;
         if (req.files !== null) {
-            // for (const key in req.files) {
-            //     image = req.files[key]
-            // }
             images = req.files
             reportData.images = images
         }
         const report = await createReport(reportData)
-        return res.json(report)
+        return res.status(201).json(report)
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ Error: error.message })
+    }
+}
+
+export async function reportCsv(req, res) {
+    try {
+        const { userId } = req.body
+        const csv = req.files
+        const report = await csvReport(csv, userId)
+        res.status(201).send(report)
+    } catch (error) {
+        res.status(500).json({ Error: error.message })
+    }
+}
+
+export async function reportFiltering(req, res) {
+    try {
+        const { queryParams, query, user } = req.body
+        const result = await getReportFiltering(queryParams, query, user)
+        res.send(result)
+    } catch (error) {
+        res.status(500).json({ Error: error.message })
+    }
+}
+
+export async function reportFilterById(req, res) {
+    try {
+        const { id } = req.params
+        const result = await getReportById(id)
+        res.send(result)
+    } catch (error) {
         res.status(500).json({ Error: error.message })
     }
 }

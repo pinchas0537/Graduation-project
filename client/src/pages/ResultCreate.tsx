@@ -1,9 +1,10 @@
+import { Navigate } from "react-router";
 import { useGlobalUser } from "../globalStore/useGlobalUser";
 
 export default function ResultCreate() {
     const { createUser } = useGlobalUser()
 
-    if (!createUser) return <div>טוען נתונים...</div>
+    if (!createUser) return <Navigate to="/login" replace/>
     const userData = "user" in createUser ? createUser.user : createUser
     return (
         <div className="user-card">

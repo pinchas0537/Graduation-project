@@ -29,8 +29,9 @@ export async function reportCsv(req, res) {
 
 export async function reportFiltering(req, res) {
     try {
-        const { queryParams, query, user } = req.body
-        const result = await getReportFiltering(queryParams, query, user)
+        const { queryParams, query ,id} = req.query
+        const role = req.user
+        const result = await getReportFiltering(queryParams, query, role,id)
         res.send(result)
     } catch (error) {
         res.status(500).json({ Error: error.message })

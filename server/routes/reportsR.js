@@ -3,6 +3,7 @@ import { reportCsv, reportFilterById, reportFiltering, sendingReport } from "../
 import { imageFile } from "../middleware/imageFile.js"
 import { csvFile } from "../middleware/csvFile.js"
 import { reportError } from "../middleware/reportM.js"
+import { validRoleReports } from "../middleware/validRoleGetReport.js"
 
 const router = Router()
 
@@ -10,7 +11,7 @@ router.post("/",reportError,imageFile,sendingReport)
 
 router.post("/csv",csvFile,reportCsv)
 
-router.get("/",reportFiltering)
+router.get("/",validRoleReports,reportFiltering)
 
 router.get("/:id",reportFilterById)
 

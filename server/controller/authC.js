@@ -6,7 +6,7 @@ export async function login(req, res) {
   try {
     const { agentCode } = req.body
     const create = await loginUser(agentCode)
-    return res.status(200).json({ token: create.token, user: create.newObjUser })
+    return res.status(200).setHeader('Authorization',create.token).json({ user: create.newObjUser })
   } catch (error) {
     return res.status(500).json({ Error: error.message })
   }

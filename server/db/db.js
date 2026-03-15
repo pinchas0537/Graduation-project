@@ -23,6 +23,6 @@ export async function connect() {
         }
         return db;
     } catch (error) {
-        console.error(error)
+       throw error
     }
 }

@@ -55,11 +55,11 @@ export async function csvReport(csvFile, userId) {
     }
 }
 
-export async function getReportFiltering(queryParams, query, user) {
+export async function getReportFiltering(queryParams, query, role, id) {
     try {
-        const queryFilter = {[queryParams]:query}
-        if(user.role !== "admin"){
-            queryFilter.userId = user.id
+        const queryFilter = { [queryParams]: query }
+        if (role !== "admin") {
+            queryFilter.userId = id
         }
         const result = await getReportOnFiltering(queryFilter)
         return result
@@ -69,10 +69,10 @@ export async function getReportFiltering(queryParams, query, user) {
 }
 
 export async function getReportById(id) {
-   try {
-     const result = await getById(id)
-     return result
-   } catch (error) {
-    throw error
-   }
+    try {
+        const result = await getById(id)
+        return result
+    } catch (error) {
+        throw error
+    }
 }

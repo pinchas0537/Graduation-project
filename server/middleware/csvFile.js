@@ -4,10 +4,12 @@ import { config } from "dotenv";
 config()
 export async function csvFile(req, res, next) {
     try {
+        const {userId} = req.body
+        if(!userId) return res.status(401).json({Error:"user ID not sent."})
         const token = req.headers.authorization;
         if (!token || token === "") return res.status(401).json({ Error: "The token is missing or invalid." })
         const verify = verifyToken(token, process.env.SECRET_JWT)
-        if (verify.role !== "agent" || verify.role !== "admin") return res.status(401).json({ Error: "No appropriate permission" })
+        if (verify.role !== "agent" && verify.role !== "admin") return res.status(401).json({ Error: "No appropriate permission" })
         const files = req.files
         if (!files) return res.status(400).json({ Error: "File not sent." })
         let file;

@@ -2,7 +2,7 @@ import { Router } from "express"
 import { createNewUser, getAll, oneDelete, updateAllFields, updateOneField } from "../controller/adminC.js"
 import { errorReq } from "../middleware/eroorReq.js"
 import { authAdmin } from "../middleware/authAdmin.js"
-import { validAdmin } from "../middleware/validToken.js"
+import { validAdmin } from "../middleware/validTokenAdmin.js"
 
 const router = Router()
 

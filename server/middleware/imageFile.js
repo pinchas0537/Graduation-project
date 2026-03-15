@@ -7,7 +7,7 @@ export function imageFile(req, res, next) {
         const token = req.headers.authorization;
         if (!token || token === "") return res.status(401).json({ Error: "The token is missing or invalid." })
         const verify = verifyToken(token, process.env.SECRET_JWT)
-        if (verify.role !== "agent" || verify.role !== "admin") return res.status(401).json({ Error: "No appropriate permission" })
+        if (verify.role !== "agent" && verify.role !== "admin") return res.status(401).json({ Error: "No appropriate permission" })
         if (!req.files) return next()
         const images = req.files
         const validImages = {}

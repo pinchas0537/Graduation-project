@@ -24,13 +24,12 @@ export async function createReport(reports = {}) {
                 await image.mv(`./public/${imageNameNet}`)
                 const imagePath = `http://localhost:${process.env.PORT}/${imageNameNet}`
                 imagesPath.push(imagePath)
-
-                reportData.filesPhta = imagesPath
+                reportData.imagesPath = imagesPath
                 retureReport.imagesPath = imagesPath
             }
         }
         const report = await insertReport(reportData)
-        retureReport.id = report.insertedId.toString()
+        retureReport._id = report.insertedId.toString()
         return retureReport
     } catch (error) {
         throw error

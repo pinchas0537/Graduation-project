@@ -1,48 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../component/Input";
 import Button from "../component/button"
-import { login } from "../api/login";
+import { login } from "../api/auth";
 import { useGlobalToken, useGlobalUserT } from "../globalStore/useGlobalToken"
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
+import { isAxiosError } from "axios";
 export default function Login() {
     const { setToken } = useGlobalToken()
-    const { user, setUser } = useGlobalUserT()
+    const { setUser } = useGlobalUserT()
     const [agentCode, setAgentCode] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState("")
-    const [isLoggIn, setIsLogIn] = useState(false)
+    const [Error, setError] = useState("")
+    const navigate = useNavigate()
 
     async function loginUser() {
         try {
             const userLogin = await login({ agentCode, password })
-            if (userLogin.token) setToken(userLogin.token)
-            if (userLogin.user) setUser(userLogin.user)
-            if (userLogin.error) {
-                setError(userLogin.error)
-                return
+            if (userLogin?.headers.authorization) {
+                localStorage.setItem("userToken", userLogin.headers.authorization)
+                setToken(userLogin.headers.authorization)
             }
-            setIsLogIn(true)
-        } catch {
-            console.error({ "loginUser": error })
+            if (userLogin?.data.user) {
+                localStorage.setItem("user", JSON.stringify(userLogin.data.user))
+                setUser(userLogin.data.user)
+                if (userLogin.data.user.role === "admin") navigate("/admindeshbord")
+                if (userLogin.data.user.role === "agent") navigate("/agentdeshbord")
+            }
+        } catch (error) {
+            if (isAxiosError(error)) {
+                setError(error.response?.data.Error)
+            }
+            else {
+                console.error(error);
+            }
         }
     }
-    if (isLoggIn) {
-        if (user?.role === "agent") {
-            return <Navigate replace to="/agentdeshbord" />
+
+    useEffect(() => {
+        const token = localStorage.getItem("userToken")
+        const userObj = localStorage.getItem("user")
+        if (userObj && token) {
+            const user = JSON.parse(userObj)
+            if (user.role === "agent") {
+                navigate("/agentdeshbord", { replace: true })
+            }
+            if (user.role === "admin") {
+                navigate("/admindeshbord", { replace: true })
+            }
         }
-        else if(user?.role === "admin"){
-            return <Navigate replace to="/admindeshbord"/>
-        }
-        else{
-            return
-        }
-    }
+    }, [])
 
     return (
         <form className="login" onSubmit={async (e) => {
             e.preventDefault();
-            loginUser()
-
+            await loginUser()
         }}>
             <div className="InputContainer">
                 <div className="input-row input-row-login">
@@ -55,7 +66,7 @@ export default function Login() {
                     <Button classN="button" typeButton="submit" name="Login" />
                 </div>
                 <div className="error">
-                    {error}
+                    {Error}
                 </div>
             </div>
         </form>

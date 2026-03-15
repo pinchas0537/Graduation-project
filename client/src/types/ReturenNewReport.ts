@@ -1,14 +1,12 @@
 export type ReturenReport = {
-    data: {
-        id: string;
+        _id: string;
         category: string;
         urgency: string;
         message: string;
-        imagesPath: Array<string>;
+        imagesPath?: string[];
         sourceType: string;
         createdAt: string;
         userId: string;
-    }
 }
 
 export type GlobalReturenReport = {
